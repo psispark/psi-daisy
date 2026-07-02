@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "psi-daisy"
+version = "0.1.0"
+description = "A modern DaisyUI component library for FastHTML"
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Lucien", email = "lucien@psispark.com" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "python-fasthtml",
+    "starlette",
+]
+keywords = ["fasthtml", "daisyui", "tailwind", "components", "web"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+]
+
+[project.urls]
+Homepage = "https://github.com/psispark/psi-daisy"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+psi_daisy = ["static/**/*", "data/**/*"]
+examples = ["*"]

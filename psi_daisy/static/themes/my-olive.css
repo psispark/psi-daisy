@@ -1,0 +1,22 @@
+[data-theme='my-olive'] {
+    --color-base-100: oklch(96.9% 0.0147 115.0);
+    --color-base-200: oklch(92.9% 0.0174 113.8);
+    --color-base-300: oklch(87.9% 0.0205 116.0);
+    --color-base-content: oklch(27.9% 0.0453 114.4);
+    --color-primary: oklch(61.9% 0.1199 115.0);
+    --color-primary-content: oklch(97.8% 0.0107 118.0);
+    --color-secondary: oklch(69.8% 0.0993 94.9);
+    --color-secondary-content: oklch(27.8% 0.0397 93.4);
+    --color-accent: oklch(74.8% 0.1098 75.0);
+    --color-accent-content: oklch(24.8% 0.0508 75.2);
+    --color-neutral: oklch(31.9% 0.0207 115.3);
+    --color-neutral-content: oklch(91.9% 0.0108 112.4);
+    --color-info: oklch(71.8% 0.1206 230.6);
+    --color-info-content: oklch(29.7% 0.0594 230.3);
+    --color-success: oklch(69.9% 0.14 150.0);
+    --color-success-content: oklch(31.8% 0.0704 149.9);
+    --color-warning: oklch(78.0% 0.1501 80.0);
+    --color-warning-content: oklch(38.1% 0.0817 71.7);
+    --color-error: oklch(64.8% 0.1695 20.1);
+    --color-error-content: oklch(27.9% 0.0999 20.6);
+}
