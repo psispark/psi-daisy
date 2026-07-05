@@ -21,12 +21,13 @@ def valid_hex(o:str|None) -> bool: return bool(o and re.match(r"^#(?:[0-9a-fA-F]
 
 
 def color_name(hex_color:str) -> str:
+    """CSS4 color name for given hex code if found."""
     hits = [k for k,v in CSS4_COLORS.items() if v.lower()==hex_color.lower()]
     return hits[0] if hits else ""
 
 
 def MyColorPicker(name:str="color", web_color:WebColor="dodgerblue", hex_color:str|None=None, label:str|None="Color", show_outputs:bool=False, input_kw:dict|None=None, **kw):
-    "Color picker component."
+    """Custom color picker component with color codes"""
     user_cls = kw.pop("cls", None)
     input_kw = input_kw or {}
     hex_val = hex_color.lower() if valid_hex(hex_color) else CSS4_COLORS.get(web_color, CSS4_COLORS["dodgerblue"]).lower()

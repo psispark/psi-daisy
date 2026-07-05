@@ -16,7 +16,7 @@ def Diff(item1, item2, **kw):
     """DaisyUI diff component."""
     user_cls = kw.pop("cls", None)
     return Div(
-        Div(item1, cls="diff-item-1"),
-        Div(item2, cls="diff-item-2"),
+        Div(item1, cls="diff-item-1", role="img"),
+        Div(item2, cls="diff-item-2", role="img"),
         Div(cls="diff-resizer"),
         cls=merge_classes("diff aspect-16/9", user_cls), **kw)

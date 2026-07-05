@@ -13,9 +13,9 @@ import itertools
 from fasthtml.common import *
 from psi_daisy import psi_app
 from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_color_picker_headers
-from examples.utils.introspect import get_component_fn, get_param_info
-from examples.utils.widgets import mk_comp_select, mk_args_panel, mk_theme_select
-from examples.utils.constants import SAMPLE_CHILDREN
+from psi_daisy.utils.introspect import get_component_fn, get_param_info
+from psi_daisy.utils.widgets import mk_comp_select, mk_args_panel, mk_theme_select
+from psi_daisy.utils.constants import SAMPLE_CHILDREN
 from psi_daisy.themes import theme_script
 
 

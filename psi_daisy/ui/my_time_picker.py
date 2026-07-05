@@ -18,7 +18,7 @@ from .types import Color, Size, SelectVariant
 def MyTimePicker(name: str = "time", hour: int = 0, minute: int = 0, second: int = 0, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
         hour_kw: dict[str, Any] | None = None, minute_kw: dict[str, Any] | None = None, second_kw: dict[str, Any] | None = None, **kw):
-    "Custom my-time-picker component."
+    """Custom my-time-picker component"""
     user_cls = kw.pop("cls", None)
     hour_kw, minute_kw, second_kw = hour_kw or {}, minute_kw or {}, second_kw or {}
     return Div(

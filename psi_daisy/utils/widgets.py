@@ -1,8 +1,8 @@
 # ################################
 # File:     widgets.py
-# Module:   examples.utils
+# Module:   utils
 # Author:   lucien@psispark.com
-# Task:     Shared UI widgets for psi-daisy demos.
+# Task:     Shared UI widgets for psi-daisy demos & tests.
 # Release:  v0.1
 # History:
 #   * 001, ai, 260607, refactor
@@ -13,11 +13,12 @@
 from fasthtml.common import *
 from fasthtml.common import Select as TallSelect
 from psi_daisy.ui import Toggle, Select, Label, Checkbox 
-from examples.utils.introspect import all_components, get_component_fn, get_param_info
-from examples.utils.js import js_exclusive_all
+from psi_daisy.utils.introspect import all_components, get_component_fn, get_param_info
+from psi_daisy.utils.js import js_exclusive_all
 
 
 def mk_theme_toggle():
+    """Theme toggle component with light and dark mode"""
     return Label(
         Span("☀️", cls="text-lg"),
         Toggle(
@@ -25,22 +26,22 @@ def mk_theme_toggle():
             value="dark",
             hx_on="change: document.documentElement.setAttribute('data-theme', this.checked ? 'dark' : 'light')"),
         Span("🌙", cls="text-lg"),
-        cls="flex items-center gap-1 cursor-pointer ml-4"
-    )
+        cls="flex items-center gap-1 cursor-pointer ml-4" )
 
 
 def mk_comp_select(comp="button"):
+    """Dropdown selector for available components & updates the arguments panel on change"""
     comps = all_components()
     return Select(
         *[Option(c.replace('_', ' ').title(), value=c, selected=(c == comp)) for c in comps],
         name="component", id="comp-sel",
         hx_post="/update-args", hx_target="#args-panel", hx_trigger="change",
         hx_on__htmx_before_request="document.getElementById('display').innerHTML=''",
-        cls="w-full max-w-xs",
-    )
+        cls="w-full max-w-xs", )
 
 
 def mk_args_panel(component="button"):
+    """Dynamic configuration panel with selectors and checkboxes based on a component's parameters."""
     # TODO: fix All + other items multi-select (ties in with JS oninput handler)
     fn = get_component_fn(component)
     if fn is None:
@@ -72,11 +73,31 @@ def mk_args_panel(component="button"):
     
 
 def mk_theme_select(current="light"):
+    """Dropdown selector of builtin and custom themes."""
     from psi_daisy.themes import BUILTIN_THEMES, registered_themes
     reg = registered_themes()
     return Select(
         *[Option(t.title(), value=t, selected=(t == current)) for t in BUILTIN_THEMES],
         *[Option(t, value=t, selected=(t == current)) for t in reg],
+        name="theme", id="theme-sel",
+        onchange="applyPageTheme(this.value)",
+        cls="w-full max-w-xs")
+
+
+def mk_theme_select(current="light"):
+    """Dropdown selector of builtin and custom themes."""
+    from psi_daisy.themes import BUILTIN_THEMES, registered_themes
+    all_themes = list(set(list(BUILTIN_THEMES) + list(registered_themes())))
+
+    def sort_key(t):
+        lower_t = t.lower()
+        if lower_t == 'light': return (0, lower_t)
+        if lower_t == 'dark': return (1, lower_t)
+        return (2, lower_t)
+    
+    sorted_themes = sorted(all_themes, key=sort_key)
+    return Select(
+        *[Option(t.title() if t in BUILTIN_THEMES else t, value=t, selected=(t == current)) for t in sorted_themes],
         name="theme", id="theme-sel",
         onchange="applyPageTheme(this.value)",
         cls="w-full max-w-xs")

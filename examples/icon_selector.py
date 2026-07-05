@@ -18,8 +18,8 @@ from psi_daisy.ui import Button, Divider, Label, Input, Select, Checkbox, MyLuci
 from psi_daisy.ui.types import Color
 from psi_daisy.themes import theme_script
 from psi_daisy.config import ICONS_DB
-from examples.utils.widgets import mk_theme_select
-from examples.utils.db import mk_conx, query
+from psi_daisy.utils.widgets import mk_theme_select
+from psi_daisy.utils.db import mk_conx, query
 
 db_path = ICONS_DB
 colors = list(get_args(Color))

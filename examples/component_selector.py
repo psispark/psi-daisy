@@ -15,9 +15,9 @@ import itertools
 from fasthtml.common import *
 from psi_daisy import psi_app
 from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_color_picker_headers 
-from examples.utils.introspect import get_component_fn, get_param_info
-from examples.utils.widgets import mk_theme_toggle, mk_comp_select, mk_args_panel
-from examples.utils.constants import SAMPLE_CHILDREN
+from psi_daisy.utils.introspect import get_component_fn, get_param_info, get_required_kw
+from psi_daisy.utils.widgets import mk_theme_toggle, mk_comp_select, mk_args_panel
+from psi_daisy.utils.constants import SAMPLE_CHILDREN
 
 
 app = psi_app(hdrs=get_date_picker_headers() + get_color_picker_headers())
@@ -57,25 +57,20 @@ def render_home():
 def render_combinations(component, form_data):
     fn = get_component_fn(component)
     if fn is None: return P(f"Component '{component}' not found.", cls="text-error")
-
     pos_args, literal_params, bool_params, var_positional = get_param_info(fn)
-
+    base_kw = get_required_kw(fn)
     selected = {}
     for pname, all_vals in literal_params.items():
         chosen = form_data.getlist(pname) if hasattr(form_data, 'getlist') else (
             [form_data[pname]] if pname in form_data else all_vals[:1])
         selected[pname] = all_vals if "__all__" in chosen else (chosen or all_vals[:1])
-
     bool_selected = {p: p in form_data for p in bool_params}
-
     keys = list(selected.keys())
     combos = list(itertools.product(*[selected[k] for k in keys])) if keys else [()]
     children = SAMPLE_CHILDREN.get(component, SAMPLE_CHILDREN["_default"])
-
     cards = []
     for combo in combos:
-        kw = {**dict(zip(keys, combo)),
-              **{p: True for p, v in bool_selected.items() if v}}
+        kw = {**base_kw, **dict(zip(keys, combo)), **{p: True for p, v in bool_selected.items() if v}}
         label = ", ".join(f"{k}={v!r}" for k, v in zip(keys, combo))
         label += "".join(f", {p}" for p, v in bool_selected.items() if v)
         try:
@@ -91,7 +86,6 @@ def render_combinations(component, form_data):
                     P(f"⚠️ {e}", cls="text-xs text-red-500"),
                     P(label, cls="text-xs text-gray-400 dark:text-gray-500"),
                     cls="p-4 border border-red-200 dark:border-red-800 rounded-lg"))
-
     return Div(*cards, cls="flex flex-wrap gap-4")
 
 

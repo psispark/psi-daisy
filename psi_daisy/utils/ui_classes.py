@@ -1,8 +1,8 @@
 # ################################
-# File:     utils.py
+# File:     ui_classes.py
 # Module:   daisy
 # Author:   lucien@psispark.com
-# Task:     Utility helpers for class merging and shared FP helpers.
+# Task:     Utility helpers for UI classes.
 # Release:  v0.1
 # History:
 #   * 001, luch, 260603, build

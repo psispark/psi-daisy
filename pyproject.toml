@@ -28,6 +28,8 @@ Homepage = "https://github.com/psispark/psi-daisy"
 
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["psi_daisy*", "examples*"]
+exclude = ["tests*", "test*"]
 
 [tool.setuptools.package-data]
 psi_daisy = ["static/**/*", "data/**/*"]

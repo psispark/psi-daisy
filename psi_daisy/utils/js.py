@@ -1,6 +1,6 @@
 # ################################
 # File:     js.py
-# Module:   examples.utils
+# Module:   utils
 # Author:   lucien@psispark.com
 # Task:     JS helpers for psi-daisy demos.
 # Release:  v0.1

@@ -1,0 +1,145 @@
+# ################################
+# File:     constants.py
+# Module:   utils
+# Author:   lucien@psispark.com
+# Task:     Shared constants for psi-daisy demos & tests.
+# Release:  v0.2
+# History:
+#   * 001, ai, 260607, refactor
+#   * 002, luch, 260623, fix finename mismatch
+# ################################
+
+from fasthtml.common import *
+from psi_daisy.ui import *
+from psi_daisy.ui.types import Theme
+
+BUILTIN_THEMES = list(Theme.__args__)
+
+LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+
+SAMPLE_ARGS = dict(
+    alt="Sample avatar", badge="3", content=P("Main content"), current=3, day=5, desc="24% higher than last week", figure="↗", 
+    footer="2 minutes ago", header="CI Bot",     headers=["Name", "Role", "Status"], hint="Use a strong password.", hour=9, 
+    href="#", icon="sparkles",     id="demo-id", item1="Before", item2="After", label="Label", legend="Account details",
+    message="The build finished successfully.", minute=30, month=7, name="demo", off="Disabled", on="Enabled", pages=7,
+    rows=[["Ada", "Engineer", "Active"], ["Grace", "Designer", "Away"], ["Linus", "Ops", "Busy"]],
+    second=15, sidebar=Ul(Li(A("Dashboard", href="#")), Li(A("Settings", href="#")), Li(A("Billing", href="#"))),
+    src="https://picsum.photos/96", text="Sample text", theme="light", tip="Helpful tooltip",
+    title="Sample Title", trigger=Button("Open menu"), url="https://psi-daisy.example", value="42",
+    web_color="dodgerblue", year=2026 )
+
+
+SAMPLE_CHILDREN = dict(
+    accordion=[P("Use accordions to reveal supporting details without overwhelming the page."), P(LOREM)],
+    alert=[Span("Success"), Span("Your changes have been saved and synced.")],
+    breadcrumbs=[A("Home", href="#"), A("Components", href="#"), Span("Button")],
+    card=[H3("Project health", cls="card-title"), P("All services are responding normally."), Div(Button("View report", size="sm"), cls="card-actions justify-end")],
+    carousel=[Div("Slide 1", cls="w-64 h-32 flex items-center justify-center bg-base-200"), Div("Slide 2", cls="w-64 h-32 flex items-center justify-center bg-base-300"), Div("Slide 3", cls="w-64 h-32 flex items-center justify-center bg-base-200")],
+    chat_bubble=[P("Hello there!"), P("Can you review the new theme?")],
+    collapse=[P("Collapsible content can include text, forms, or nested components."), Button("Take action", size="sm")],
+    countdown=[12, 34, 56], 
+    diff=[Div("Original content", cls="bg-base-200 p-4"), Div("Updated content", cls="bg-primary text-primary-content p-4")],
+    dock=[A("Home", href="#"), A("Search", href="#"), A("Profile", href="#")], 
+    dropdown=[Li(A("Profile", href="#")), Li(A("Settings", href="#")), Li(A("Logout", href="#"))], 
+    f_a_b=[Button("Edit"), Button("Share")],
+    fieldset=[Input(placeholder="Email"), Input(placeholder="Password", type="password")], 
+    filter=[("all", "All"), ("open", "Open"), ("closed", "Closed")], 
+    footer=[Nav(H6("Services", cls="footer-title"), A("Branding", href="#"), A("Design", href="#")), Nav(H6("Company", cls="footer-title"), A("About", href="#"), A("Contact", href="#"))],
+    hero=[H1("Build beautiful FastHTML apps", cls="text-5xl font-bold"), P(LOREM), Button("Get started")], 
+    hover_3d=[Img(src="https://picsum.photos/240/160", alt="Preview")],
+    hover_gallery=[Img(src="https://picsum.photos/200/120?1", alt="Gallery 1"), Img(src="https://picsum.photos/200/120?2", alt="Gallery 2"), Img(src="https://picsum.photos/200/120?3", alt="Gallery 3")],
+    indicator=[Button("Inbox"), Badge("9", color="error")], 
+    join=[Button("Left"), Button("Middle"), Button("Right")], 
+    label=[Span("Email"), Input(placeholder="name@example.com")],
+    list=[Li("Design tokens"), Li("Component variants"), Li("Interaction states")], 
+    mask=[Img(src="https://picsum.photos/128", alt="Masked image")], 
+    menu=[Li(A("Home", href="#")), Li(A("Components", href="#")), Li(A("Themes", href="#"))],
+    mockup_browser=[Div("Browser content", cls="p-6 bg-base-200")], 
+    mockup_code=["npm install psi-daisy", "python -m pytest", "uvicorn app:app"], 
+    mockup_phone=[Div("Mobile preview", cls="p-6")],
+    mockup_window=[Div("Window content", cls="p-6 bg-base-200")], 
+    modal=[P("Confirm this important action."), P("This cannot be undone.")], 
+    navbar=[Button("Menu"), A("psi-daisy", href="#", cls="text-xl font-bold"), Button("Login")], 
+    select=[("draft", "Draft"), ("published", "Published"), ("archived", "Archived")], 
+    stack=[Div("Layer 1", cls="card bg-base-200 p-6"), Div("Layer 2", cls="card bg-base-300 p-6"), Div("Layer 3", cls="card bg-primary text-primary-content p-6")],
+    steps=["Plan", "Build", "Ship"], 
+    swap=[Span("🌞"), Span("🌙")], 
+    tabs=[("Preview", P("Rendered component")), ("Code", Pre(Code("Button('Save')"))), ("Docs", P("Usage notes"))],
+    text_rotate=["FastHTML", "DaisyUI", "Components"], 
+    timeline=[("2026-07-01", "Created project", "Done"), ("2026-07-03", "Added theme", "Done"), ("2026-07-05", "Published package", "Ready")],  
+    toast=[Alert("Saved successfully", color="success")], 
+    tooltip=[Button("Hover me")],
+    validator=[Input(placeholder="Required field", required=True)], 
+    my_empty_state=[P("There are no records yet."), Button("Create one")], _default=[P(LOREM)] )
+
+ROOT_CLASSES = dict(
+    accordion=["collapse"],
+    alert=["alert", 'role="alert"'],
+    avatar=["avatar"],
+    badge=["badge"],
+    breadcrumbs=["breadcrumbs"],
+    button=["btn"],
+    calendar=["calendar"],
+    card=["card"],
+    carousel=["carousel"],
+    chat_bubble=["chat"],
+    checkbox=["checkbox"],
+    collapse=["collapse"],
+    countdown=["countdown"],
+    diff=["diff"],
+    divider=["divider"],
+    dock=["dock"],
+    drawer=["drawer"],
+    dropdown=["dropdown"],
+    f_a_b=["fixed", "dropdown"],
+    fieldset=["fieldset"],
+    file_input=["file-input"],
+    filter=["filter"],
+    footer=["footer"],
+    hero=["hero"],
+    hover_3d=["hover-3d"],
+    hover_gallery=["hover-gallery"],
+    indicator=["indicator"],
+    input=["input"],
+    join=["join"],
+    kbd=["kbd"],
+    label=["label"],
+    link=["link"],
+    list=["list"],
+    loading=["loading"],
+    mask=["mask"],
+    menu=["menu"],
+    mockup_browser=["mockup-browser"],
+    mockup_code=["mockup-code"],
+    mockup_phone=["mockup-phone"],
+    mockup_window=["mockup-window"],
+    modal=["modal"],
+    navbar=["navbar"],
+    pagination=["join"],
+    progress=["progress"],
+    radial_progress=["radial-progress"],
+    radio=["radio"],
+    range=["range"],
+    rating=["rating"],
+    select=["select"],
+    skeleton=["skeleton"],
+    stack=["stack"],
+    stat=["stat"],
+    status=["status"],
+    steps=["steps"],
+    swap=["swap"],
+    table=["table"],
+    tabs=["tabs"],
+    textarea=["textarea"],
+    theme_controller=["theme-controller"],
+    timeline=["timeline"],
+    toast=["toast"],
+    toggle=["toggle"],
+    tooltip=["tooltip"],
+    validator=["validator"],
+    my_empty_state=["hero"],
+    my_lucide_icon=["lucide"],
+    my_date_picker=["select"],
+    my_time_picker=["select"],
+    my_date_time_picker=["select"],
+    my_color_picker=["input"], )

@@ -21,7 +21,7 @@ def MyDateTimePicker(name: str = "datetime",
         hour: int = 0, minute: int = 0, second: int = 0, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
         date_kw: dict[str, Any] | None = None, time_kw: dict[str, Any] | None = None, **kw):
-    "Custom my-date-time-picker component."
+    """Custom date time picker component"""
     user_cls = kw.pop("cls", None)
     date_kw, time_kw = date_kw or {}, time_kw or {}
     return Div(
