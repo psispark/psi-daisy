@@ -56,6 +56,7 @@ def render_home():
 
 def render_combinations(component, form_data):
     fn = get_component_fn(component)
+    cname = getattr(fn, "__name__", component)
     if fn is None: return P(f"Component '{component}' not found.", cls="text-error")
     pos_args, literal_params, bool_params, var_positional = get_param_info(fn)
     base_kw = get_required_kw(fn)
@@ -76,10 +77,10 @@ def render_combinations(component, form_data):
         try:
             result = fn(*pos_args, *children, **kw) if var_positional else fn(*pos_args, **kw)
             cards.append(
-                Div(
-                    result,
+                Div(result,
                     P(label or component, cls="text-xs text-gray-400 dark:text-gray-500 mt-2"),
-                    cls="p-4 border border-gray-100 dark:border-gray-700 rounded-lg flex flex-col items-start gap-1"))
+                    cls="tooltip tooltip-bottom p-4 border border-gray-100 dark:border-gray-700 rounded-lg flex flex-col items-start gap-1",
+                    data_tip=f"{cname}({label})" if label else f"{cname}()"))
         except Exception as e:
             cards.append(
                 Div(
@@ -110,4 +111,4 @@ async def post(req):
     form = await req.form()
     component = form.get("component", "button")
     res = render_combinations(component, form)
-    return (res, Script("setTimeout(() => lucide.createIcons(), 0)")) if component == "MyLucideIcon" else res
+    return (res, Script("setTimeout(() => lucide.createIcons(), 0)")) if component == "MyIcon" else res

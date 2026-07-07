@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import get_args
 from fasthtml.common import *
 from psi_daisy import psi_app
-from psi_daisy.ui import Button, Divider, Label, Input, Select, Checkbox, MyLucideIcon, MyColorPicker, get_color_picker_headers
+from psi_daisy.ui import Button, Divider, Label, Input, Select, Checkbox, MyIcon, MyColor, get_color_picker_headers
 from psi_daisy.ui.types import Color
 from psi_daisy.themes import theme_script
 from psi_daisy.config import ICONS_DB
@@ -65,11 +65,11 @@ def icon_card(r:sqlite3.Row, color:Color, size:int, stroke_width:float, hex_colo
     name = r['name']
     args = f'icon="{name}", color="{color}", size={size}, stroke_width={stroke_width}' if not hex_color else f'icon="{name}", color="{color}", size={size}, stroke_width={stroke_width}, hex_color="{hex_color}"'
     return Div(
-        Div(MyLucideIcon(icon=name, color=color, size=size, stroke_width=stroke_width, hex_color=hex_color), cls="h-20 flex items-center justify-center"),
+        Div(MyIcon(icon=name, color=color, size=size, stroke_width=stroke_width, hex_color=hex_color), cls="h-20 flex items-center justify-center"),
         P(name, cls="text-sm font-medium text-center break-all"),
         P(label, cls="text-xs text-base-content/50") if label else None,
         cls="tooltip tooltip-bottom p-4 border border-base-300 rounded-lg flex flex-col items-center gap-3 bg-base-100",
-        data_tip=f"MyLucideIcon({args})")
+        data_tip=f"MyIcon({args})")
 
 
 def render_results(rows:list[sqlite3.Row], color:Color='primary', size:int=32, stroke_width:float=2, use_hex_color:bool=False, hex_color:str|None=None) -> FT:
@@ -97,7 +97,7 @@ def render_home() -> FT:
                         onchange="document.getElementById('hex-color-wrap').classList.toggle('hidden', !this.checked)"),
                     Span("Use custom hex color", cls="label-text"),
                     cls="label cursor-pointer justify-start gap-3"),
-                Div(MyColorPicker(name="hex_color", web_color="dodgerblue", hex_color=None, label=None, show_outputs=True), id="hex-color-wrap", cls="hidden"),
+                Div(MyColor(name="hex_color", web_color="dodgerblue", hex_color=None, label=None, show_outputs=True), id="hex-color-wrap", cls="hidden"),
                 cls="flex flex-col md:flex-row md:items-start gap-4"),
             id="icon-options",
             cls="flex flex-col"),

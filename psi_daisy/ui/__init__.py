@@ -80,12 +80,12 @@ from .tooltip           import Tooltip
 from .validator         import Validator
 
 # custom components
-from .my_empty_state    import MyEmptyState 
-from .my_lucide_icon    import MyLucideIcon
-from .my_date_picker    import MyDatePicker 
-from .my_time_picker    import MyTimePicker
-from .my_date_time_picker import MyDateTimePicker
-from .my_color_picker   import MyColorPicker
+from .my_empty    import MyEmpty 
+from .my_icon           import MyIcon
+from .my_date    import MyDate 
+from .my_time    import MyTime
+from .my_datetime import MyDatetime
+from .my_color   import MyColor
 
 # custom header js
 from ._picker           import get_date_picker_headers, get_color_picker_headers 
@@ -106,6 +106,6 @@ __all__ = [
     "TextRotate", "Textarea", "ThemeController", "Timeline", "Toast", "Toggle",
     "Tooltip", "Validator",
     # custom components
-    "MyEmptyState", "MyLucideIcon", "MyDatePicker", "MyTimePicker", "MyDateTimePicker", "MyColorPicker", 
+    "MyEmpty", "MyIcon", "MyDate", "MyTime", "MyDatetime", "MyColor", 
     # custom header js
     "get_date_picker_headers",  "get_color_picker_headers", ]

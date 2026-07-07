@@ -1,5 +1,5 @@
 # ################################
-# File:     my_date_picker.py
+# File:     my_date.py
 # Module:   ui
 # Author:   lucien@psispark.com
 # Task:     Generate custom Date Picker component.
@@ -16,7 +16,7 @@ from ._picker import picker_select
 from .types import Color, Size, SelectVariant
 
 
-def MyDatePicker(name: str = "date", year: int = 2026, month: int = 1, day: int = 1, start_year: int = 1900, end_year: int = 2100, 
+def MyDate(name: str = "date", year: int = 2026, month: int = 1, day: int = 1, start_year: int = 1900, end_year: int = 2100, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
         year_kw: dict[str, Any] | None = None, month_kw: dict[str, Any] | None = None, day_kw: dict[str, Any] | None = None, **kw):
     "Custom my-date-picker component."

@@ -1,5 +1,5 @@
 # ################################
-# File:     my_date_time_picker.py
+# File:     my_datetime.py
 # Module:   ui
 # Author:   lucien@psispark.com
 # Task:     Generate custom Date Time Picker component.
@@ -11,12 +11,12 @@
 from typing import Any
 from fasthtml.common import Div
 from ..utils import merge_classes
-from .my_date_picker import MyDatePicker
-from .my_time_picker import MyTimePicker
+from .my_date import MyDate
+from .my_time import MyTime
 from .types import Color, Size, SelectVariant
 
 
-def MyDateTimePicker(name: str = "datetime", 
+def MyDatetime(name: str = "datetime", 
         year: int = 2026, month: int = 1, day: int = 1, start_year: int = 1900, end_year: int = 2100, 
         hour: int = 0, minute: int = 0, second: int = 0, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
@@ -25,7 +25,7 @@ def MyDateTimePicker(name: str = "datetime",
     user_cls = kw.pop("cls", None)
     date_kw, time_kw = date_kw or {}, time_kw or {}
     return Div(
-        MyDatePicker(name=name, year=year, month=month, day=day, start_year=start_year, end_year=end_year, color=color, size=size, variant=variant, **date_kw),
-        MyTimePicker(name=name, hour=hour, minute=minute, second=second, color=color, size=size, variant=variant, **time_kw),
+        MyDate(name=name, year=year, month=month, day=day, start_year=start_year, end_year=end_year, color=color, size=size, variant=variant, **date_kw),
+        MyTime(name=name, hour=hour, minute=minute, second=second, color=color, size=size, variant=variant, **time_kw),
         cls=merge_classes("flex flex-col gap-4", user_cls),
         **kw)

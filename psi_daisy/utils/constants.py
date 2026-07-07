@@ -70,7 +70,7 @@ SAMPLE_CHILDREN = dict(
     toast=[Alert("Saved successfully", color="success")], 
     tooltip=[Button("Hover me")],
     validator=[Input(placeholder="Required field", required=True)], 
-    my_empty_state=[P("There are no records yet."), Button("Create one")], _default=[P(LOREM)] )
+    my_empty=[P("There are no records yet."), Button("Create one")], _default=[P(LOREM)] )
 
 ROOT_CLASSES = dict(
     accordion=["collapse"],
@@ -137,9 +137,9 @@ ROOT_CLASSES = dict(
     toggle=["toggle"],
     tooltip=["tooltip"],
     validator=["validator"],
-    my_empty_state=["hero"],
-    my_lucide_icon=["lucide"],
-    my_date_picker=["select"],
-    my_time_picker=["select"],
-    my_date_time_picker=["select"],
-    my_color_picker=["input"], )
+    my_empty=["hero"],
+    my_icon=["lucide"],
+    my_date=["select"],
+    my_time=["select"],
+    my_datetime=["select"],
+    my_color=["input"], )

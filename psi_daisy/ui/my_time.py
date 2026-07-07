@@ -1,5 +1,5 @@
 # ################################
-# File:     my_time_picker.py
+# File:     my_time.py
 # Module:   ui
 # Author:   lucien@psispark.com
 # Task:     Generate custom Time Picker component.
@@ -15,7 +15,7 @@ from ._picker import picker_select
 from .types import Color, Size, SelectVariant
 
 
-def MyTimePicker(name: str = "time", hour: int = 0, minute: int = 0, second: int = 0, 
+def MyTime(name: str = "time", hour: int = 0, minute: int = 0, second: int = 0, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
         hour_kw: dict[str, Any] | None = None, minute_kw: dict[str, Any] | None = None, second_kw: dict[str, Any] | None = None, **kw):
     """Custom my-time-picker component"""

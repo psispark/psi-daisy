@@ -56,6 +56,7 @@ def render_home():
 
 def render_combinations(component, form_data):
     fn = get_component_fn(component)
+    cname = getattr(fn, "__name__", component)
     if fn is None: return P(f"Component '{component}' not found.", cls="text-error")
     pos_args, literal_params, bool_params, var_positional = get_param_info(fn)
     selected = {}
@@ -76,7 +77,8 @@ def render_combinations(component, form_data):
             result = fn(*pos_args, *children, **kw) if var_positional else fn(*pos_args, **kw)
             cards.append(Div(result,
                 P(label or component, cls="text-xs text-base-content/50 mt-2"),
-                cls="p-4 border border-base-300 rounded-lg flex flex-col items-start gap-1"))
+                cls="tooltip tooltip-bottom p-4 border border-base-300 rounded-lg flex flex-col items-start gap-1",
+                data_tip=f"{cname}({label})" if label else f"{cname}()"))
         except Exception as e:
             cards.append(Div(
                 P(f"⚠️ {e}", cls="text-xs text-error"),

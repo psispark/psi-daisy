@@ -53,7 +53,7 @@ def mk_args_panel(component="button"):
         opts = [Option("All", value="__all__")] + [Option(v or "(default)", value=v) for v in vals]
         n = len(vals)
         large = n > 30
-        if large: sel = TallSelect(*opts, name=pname, multiple=True, size=min(n+1, 24), cls="w-full border border-base-300 rounded-lg p-2 bg-base-100 text-base-content", style="min-width:28rem;height:32rem;", oninput=js_exclusive_all())  
+        if large: sel = TallSelect(*opts, name=pname, multiple=True, size=min(n+1, 15), cls="w-full border border-base-300 rounded-lg p-2 bg-base-100 text-base-content", style="min-width:28rem;height:16rem;", oninput=js_exclusive_all())  
         else: sel = Select(*opts, name=pname, multiple=True, size=min(n+1, 7), cls="w-full", oninput=js_exclusive_all())
         controls.append(Div(
             Label(pname.title(), cls="text-sm font-semibold mb-1 block text-gray-700 dark:text-gray-300"),
@@ -71,18 +71,6 @@ def mk_args_panel(component="button"):
     inner = Div(*controls, cls="flex flex-wrap gap-6 p-4") if controls         else P("No configurable args.", cls="text-sm text-gray-400 italic")
     return Div(inner, id="args-panel", cls="flex flex-col")
     
-
-def mk_theme_select(current="light"):
-    """Dropdown selector of builtin and custom themes."""
-    from psi_daisy.themes import BUILTIN_THEMES, registered_themes
-    reg = registered_themes()
-    return Select(
-        *[Option(t.title(), value=t, selected=(t == current)) for t in BUILTIN_THEMES],
-        *[Option(t, value=t, selected=(t == current)) for t in reg],
-        name="theme", id="theme-sel",
-        onchange="applyPageTheme(this.value)",
-        cls="w-full max-w-xs")
-
 
 def mk_theme_select(current="light"):
     """Dropdown selector of builtin and custom themes."""

@@ -1,5 +1,5 @@
 # ################################
-# File:     my_lucide_icon.py
+# File:     my_icon.py
 # Module:   ui
 # Author:   lucien@psispark.com
 # Task:     Build Lucide icon component.
@@ -14,7 +14,7 @@ from ..utils import merge_classes
 from .types import Color 
 
 
-def MyLucideIcon(
+def MyIcon(
     icon: str = "lightbulb",
     color: Color = "primary",
     size: int = 24,
