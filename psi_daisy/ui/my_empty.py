@@ -17,17 +17,7 @@ from .types import Color
 EmptyStateVariant = Literal["hero", "card"]
 
 
-def MyEmpty(
-    title: str,
-    *,
-    body: str = "",
-    icon=None,
-    action=None,
-    color: Color | None = None,
-    variant: EmptyStateVariant = "hero",
-    compact: bool = True,
-    **kw,
-):
+def MyEmpty(title: str, *, body: str = "", icon=None, action=None, color: Color | None = None, variant: EmptyStateVariant = "hero", compact: bool = True, **kw,):
     """Custom my-empty-state component."""
     user_cls = kw.pop("cls", None)
     tone_cls = f"text-{color}" if color else "text-base-content"

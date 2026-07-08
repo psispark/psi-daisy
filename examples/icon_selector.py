@@ -5,8 +5,8 @@
 # Task:     Lucide icon selector demo.
 # Release:  v0.2
 # History:
-#   * 001, Luch, 260608, build
-#   * version, who, when, why
+#   * 001, luch, 260608, build
+#   * 002, luch, 260708, add runner
 # ################################
 
 import sqlite3
@@ -127,3 +127,11 @@ async def post(req):
     hex_color = form.get("hex_color")
     search = form.get("search") or search_placeholder
     return render_results(search_icons(search, count), color, size, stroke_width, use_hex_color, hex_color)
+
+
+def run(host:str="0.0.0.0", port:int=8001):
+    """Runner to launch example from py."""
+    import uvicorn
+    uvicorn.run(app, host=host, port=port)
+
+if __name__ == "__main__": run()

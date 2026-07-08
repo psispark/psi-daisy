@@ -8,19 +8,20 @@
 #   * 001, ai, 260610, build
 #   * 002, ai, 260610, fix oklch, seed from builtins, custom theme registry
 #   * 003, ai, 260615, refactor
+#   * 004, luch, 260708, add runner
 # ################################
 
 import json
 from fasthtml.common import *
 from psi_daisy import psi_app
-from psi_daisy.ui import Button, Select, Input, Badge
+from psi_daisy.ui import Button, Select, Input, Badge, MyColor, get_color_picker_headers  
 from psi_daisy.config import THEMES_DIR
 from psi_daisy.themes import (BUILTIN_THEMES, BUILTIN_VARS, CSS_VARS, registered_themes,
     load_custom_vars, save_theme, oklch_to_hex, hex_to_oklch, hex_to_rgb,
     vals_to_css, form_to_css, form_to_save_css, parse_css_vars, theme_script)
 
 
-app = psi_app()
+app = psi_app(hdrs=get_color_picker_headers())
 rt = app.route
 
 
@@ -151,6 +152,7 @@ def get():
             Span(id="save-msg", cls="text-sm text-success"),
             Div(
                 Div(
+                    MyColor(label=None, show_outputs=True),
                     H2("Variables", cls="text-lg font-semibold mb-2 text-base-content"),
                     mk_vars_table(),
                     cls="flex-1 min-w-64"),
@@ -214,3 +216,11 @@ async def post(req):
     form = await req.form()
     vals = parse_css_vars(form.get("css-import", ""))
     return mk_vars_table(vals)
+
+
+def run(host:str="0.0.0.0", port:int=8001):
+    """Runner to launch example from py."""
+    import uvicorn
+    uvicorn.run(app, host=host, port=port)
+
+if __name__ == "__main__": run()

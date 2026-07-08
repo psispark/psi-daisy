@@ -16,7 +16,7 @@ db_path = ICONS_DB
 
 
 def mk_conx(path:Path=db_path) -> sqlite3.Connection:
-    """get connection to sqlite db in path"""
+    """Get connection to sqlite db in path."""
     conx = sqlite3.connect(path)
     conx.row_factory = sqlite3.Row
     return conx

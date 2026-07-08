@@ -5,21 +5,22 @@
 # Task:     psi-daisy theme selector demo.
 # Release:  v0.2
 # History:
-#   * 001, Luch, 260608, build
-#   * 002, Luch, 260628, xtra header for my-date-picker
+#   * 001, luch, 260608, build
+#   * 002, luch, 260628, xtra header for my-date-picker
+#   * 003, luch, 260708, add runner
 # ################################
 
 import itertools
 from fasthtml.common import *
 from psi_daisy import psi_app
-from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_color_picker_headers
-from psi_daisy.utils.introspect import get_component_fn, get_param_info
+from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers
+from psi_daisy.utils.introspect import get_component_fn, get_param_info, get_required_kw
 from psi_daisy.utils.widgets import mk_comp_select, mk_args_panel, mk_theme_select
 from psi_daisy.utils.constants import SAMPLE_CHILDREN
 from psi_daisy.themes import theme_script
 
 
-app = psi_app(hdrs=get_date_picker_headers() + get_color_picker_headers())
+app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
 rt = app.route
 
 
@@ -59,6 +60,7 @@ def render_combinations(component, form_data):
     cname = getattr(fn, "__name__", component)
     if fn is None: return P(f"Component '{component}' not found.", cls="text-error")
     pos_args, literal_params, bool_params, var_positional = get_param_info(fn)
+    base_kw = get_required_kw(fn)
     selected = {}
     for pname, all_vals in literal_params.items():
         chosen = form_data.getlist(pname) if hasattr(form_data, 'getlist') else (
@@ -70,14 +72,14 @@ def render_combinations(component, form_data):
     children = SAMPLE_CHILDREN.get(component, SAMPLE_CHILDREN["_default"])
     cards = []
     for combo in combos:
-        kw = {**dict(zip(keys, combo)), **{p: True for p, v in bool_selected.items() if v}}
+        kw = {**base_kw, **dict(zip(keys, combo)), **{p: True for p, v in bool_selected.items() if v}}
         label = ", ".join(f"{k}={v!r}" for k, v in zip(keys, combo))
         label += "".join(f", {p}" for p, v in bool_selected.items() if v)
         try:
             result = fn(*pos_args, *children, **kw) if var_positional else fn(*pos_args, **kw)
             cards.append(Div(result,
                 P(label or component, cls="text-xs text-base-content/50 mt-2"),
-                cls="tooltip tooltip-bottom p-4 border border-base-300 rounded-lg flex flex-col items-start gap-1",
+                cls="tooltip tooltip-bottom p-4 border border-base-300 rounded-lg flex flex-col items-stretch gap-1 w-full max-w-md", 
                 data_tip=f"{cname}({label})" if label else f"{cname}()"))
         except Exception as e:
             cards.append(Div(
@@ -107,3 +109,11 @@ async def post(req):
 async def post(req):
     form = await req.form()
     return render_combinations(form.get("component", "button"), form)
+
+
+def run(host:str="0.0.0.0", port:int=8001):
+    """Runner to launch example from py."""
+    import uvicorn
+    uvicorn.run(app, host=host, port=port)
+
+if __name__ == "__main__": run()

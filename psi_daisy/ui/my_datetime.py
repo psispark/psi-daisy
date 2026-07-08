@@ -9,7 +9,7 @@
 # ################################
 
 from typing import Any
-from fasthtml.common import Div
+from fasthtml.common import Div, Input
 from ..utils import merge_classes
 from .my_date import MyDate
 from .my_time import MyTime
@@ -21,11 +21,16 @@ def MyDatetime(name: str = "datetime",
         hour: int = 0, minute: int = 0, second: int = 0, 
         color: Color = "primary", size: Size = "md", variant: SelectVariant = "bordered", 
         date_kw: dict[str, Any] | None = None, time_kw: dict[str, Any] | None = None, **kw):
-    """Custom date time picker component"""
+    """Custom date time picker component."""
     user_cls = kw.pop("cls", None)
     date_kw, time_kw = date_kw or {}, time_kw or {}
+    date_name, time_name = f"{name}_date", f"{name}_time"
+    val = f"{year:04d}-{month:02d}-{day:02d}T{hour:02d}:{minute:02d}:{second:02d}"
     return Div(
-        MyDate(name=name, year=year, month=month, day=day, start_year=start_year, end_year=end_year, color=color, size=size, variant=variant, **date_kw),
-        MyTime(name=name, hour=hour, minute=minute, second=second, color=color, size=size, variant=variant, **time_kw),
+        MyDate(name=date_name, year=year, month=month, day=day, start_year=start_year, end_year=end_year, color=color, size=size, variant=variant, **date_kw),
+        MyTime(name=time_name, hour=hour, minute=minute, second=second, color=color, size=size, variant=variant, **time_kw),
+        Input(type="hidden", name=name, value=val, data_datetime_output=True),
+        data_datetime_picker=name,
+        onchange="psiUpdateDatetimePicker(this)",
         cls=merge_classes("flex flex-col gap-4", user_cls),
         **kw)

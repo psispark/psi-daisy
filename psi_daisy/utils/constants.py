@@ -19,8 +19,10 @@ LOREM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
 
 SAMPLE_ARGS = dict(
     alt="Sample avatar", badge="3", content=P("Main content"), current=3, day=5, desc="24% higher than last week", figure="↗", 
-    footer="2 minutes ago", header="CI Bot",     headers=["Name", "Role", "Status"], hint="Use a strong password.", hour=9, 
-    href="#", icon="sparkles",     id="demo-id", item1="Before", item2="After", label="Label", legend="Account details",
+    footer="2 minutes ago", header="CI Bot", headers=["Name", "Role", "Status"], hint="Use a strong password.", hour=9, href="#", icon="sparkles", id="demo-id", 
+    item1=Div(" psi-daisy ", cls="bg-primary text-primary-content grid place-content-center text-7xl font-black"), 
+    item2=Div(" psi-daisy ", cls="bg-base-200 grid place-content-center text-7xl font-black"), 
+    label="Label", legend="Account details",
     message="The build finished successfully.", minute=30, month=7, name="demo", off="Disabled", on="Enabled", pages=7,
     rows=[["Ada", "Engineer", "Active"], ["Grace", "Designer", "Away"], ["Linus", "Ops", "Busy"]],
     second=15, sidebar=Ul(Li(A("Dashboard", href="#")), Li(A("Settings", href="#")), Li(A("Billing", href="#"))),
@@ -38,7 +40,6 @@ SAMPLE_CHILDREN = dict(
     chat_bubble=[P("Hello there!"), P("Can you review the new theme?")],
     collapse=[P("Collapsible content can include text, forms, or nested components."), Button("Take action", size="sm")],
     countdown=[12, 34, 56], 
-    diff=[Div("Original content", cls="bg-base-200 p-4"), Div("Updated content", cls="bg-primary text-primary-content p-4")],
     dock=[A("Home", href="#"), A("Search", href="#"), A("Profile", href="#")], 
     dropdown=[Li(A("Profile", href="#")), Li(A("Settings", href="#")), Li(A("Logout", href="#"))], 
     f_a_b=[Button("Edit"), Button("Share")],

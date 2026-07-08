@@ -9,18 +9,19 @@
 #   * 002, ai,   260607, refactor
 #   * 003, Luch, 260608, fixed package path 
 #   * 004, Luch, 260628, xtra header for my-date-picker
+#   * 005, luch, 260708, add runner
 # ################################
 
 import itertools
 from fasthtml.common import *
 from psi_daisy import psi_app
-from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_color_picker_headers 
+from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers 
 from psi_daisy.utils.introspect import get_component_fn, get_param_info, get_required_kw
 from psi_daisy.utils.widgets import mk_theme_toggle, mk_comp_select, mk_args_panel
 from psi_daisy.utils.constants import SAMPLE_CHILDREN
 
 
-app = psi_app(hdrs=get_date_picker_headers() + get_color_picker_headers())
+app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
 rt = app.route
 
 
@@ -112,3 +113,11 @@ async def post(req):
     component = form.get("component", "button")
     res = render_combinations(component, form)
     return (res, Script("setTimeout(() => lucide.createIcons(), 0)")) if component == "MyIcon" else res
+
+
+def run(host:str="0.0.0.0", port:int=8001):
+    """Runner to launch example from py."""
+    import uvicorn
+    uvicorn.run(app, host=host, port=port)
+
+if __name__ == "__main__": run()

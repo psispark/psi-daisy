@@ -18,7 +18,7 @@ from psi_daisy.utils.js import js_exclusive_all
 
 
 def mk_theme_toggle():
-    """Theme toggle component with light and dark mode"""
+    """Theme toggle component with light and dark mode."""
     return Label(
         Span("☀️", cls="text-lg"),
         Toggle(
@@ -30,7 +30,7 @@ def mk_theme_toggle():
 
 
 def mk_comp_select(comp="button"):
-    """Dropdown selector for available components & updates the arguments panel on change"""
+    """Dropdown selector for available components & updates the arguments panel on change."""
     comps = all_components()
     return Select(
         *[Option(c.replace('_', ' ').title(), value=c, selected=(c == comp)) for c in comps],

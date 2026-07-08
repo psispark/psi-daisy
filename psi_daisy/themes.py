@@ -23,7 +23,7 @@ function applyPageTheme(name) {
 
 
 def _fetch_builtin_vars():
-    "Fetch and parse DaisyUI v5 themes.css, return {theme: {var: val}}"
+    """Fetch and parse DaisyUI v5 themes.css, return {theme: {var: val}}."""
     try:
         css = httpx.get(DAISYUI_THEMES_CSS_PATH, follow_redirects=True, timeout=10).text
         themes = {}
@@ -41,20 +41,21 @@ def registered_themes(): return json.loads(REGISTRY.read_text())
 
 
 def load_custom_vars(theme):
-    "Load vars dict from saved custom theme file"
+    """Load vars dict from saved custom theme file."""
     path = THEMES_DIR / f"{theme}.css"
     if not path.exists(): return {}
     return {m.group(1): m.group(2).strip() for m in re.finditer(r'--([\w-]+):\s*([^;]+);', path.read_text())}
 
 
 def save_theme(name, css):
+    """Save theme to custom theme registry."""
     (THEMES_DIR / f"{name}.css").write_text(css)
     reg = registered_themes()
     if name not in reg: reg.append(name); REGISTRY.write_text(json.dumps(reg))
 
 
 def theme_script():
-    "Return Script tag with custom theme data and applyPageTheme function"
+    """Return Script tag with custom theme data and applyPageTheme function."""
     reg = registered_themes()
     custom_vars = {t: load_custom_vars(t) for t in reg}
     return Script(
@@ -65,7 +66,7 @@ def theme_script():
 
 
 def oklch_to_hex(val):
-    "Convert oklch(...) string to #rrggbb for color picker"
+    """Convert oklch(...) string to #rrggbb #hex string."""
     val = re.sub(r'oklch\(|\)', '', val).replace('%','').strip()
     parts = val.split()
     if len(parts) < 2: return "#888888"
@@ -84,7 +85,7 @@ def oklch_to_hex(val):
 
 
 def hex_to_oklch(hex_color):
-    "Convert #rrggbb to oklch(...) string"
+    """Convert #rrggbb #hex to oklch(...) string."""
     h = hex_color.lstrip('#')
     r, g, b = [int(h[i:i+2], 16)/255 for i in (0, 2, 4)]
     def unlin(v): return v/12.92 if v <= 0.04045 else ((v+0.055)/1.055)**2.4
@@ -101,24 +102,29 @@ def hex_to_oklch(hex_color):
 
 
 def hex_to_rgb(hex_color):
+    """Convert #rrggbb #hex to rgb(...) string."""
     h = hex_color.lstrip('#')
     return f"rgb({int(h[0:2],16)}, {int(h[2:4],16)}, {int(h[4:6],16)})"
 
 
 def vals_to_css(vals, selector='custom-preview'):
+    """Generate a CSS block from a dictionary of theme color values."""
     lines = "\n".join(f"    --{v}: {vals.get(v, 'oklch(50% 0 0)')};" for v in CSS_VARS)
     return f"[data-theme='{selector}'] {{\n{lines}\n}}"
 
 
 def form_to_css(form, selector='custom-preview'):
+    """Convert form hex values to OKLCH and generate a preview CSS block."""
     lines = "\n".join(f"    --{v}: {hex_to_oklch(form.get('var_' + v.replace('-','_'), '#888888'))};" for v in CSS_VARS)
     return f"[data-theme='{selector}'] {{\n{lines}\n}}"
 
 
 def form_to_save_css(form, name):
+    """Convert form hex values to OKLCH and generate a named CSS block to save."""
     lines = "\n".join(f"    --{v}: {hex_to_oklch(form.get('var_' + v.replace('-','_'), '#888888'))};" for v in CSS_VARS)
     return f"[data-theme='{name}'] {{\n{lines}\n}}"
 
 
 def parse_css_vars(css_text):
+    """Extract custom CSS properties from string into dictionary."""
     return {m.group(1): m.group(2).strip() for m in re.finditer(r'--([\w-]+):\s*([^;]+);', css_text)}

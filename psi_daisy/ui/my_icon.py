@@ -14,14 +14,7 @@ from ..utils import merge_classes
 from .types import Color 
 
 
-def MyIcon(
-    icon: str = "lightbulb",
-    color: Color = "primary",
-    size: int = 24,
-    stroke_width: float = 3,
-    hex_color:str|None=None, 
-    **kw,
-):
+def MyIcon(icon: str = "lightbulb", color: Color = "primary", size: int = 24, stroke_width: float = 3, hex_color:str|None=None, **kw,):
     """Lucide icon component."""
     user_cls = kw.pop("cls", None)
     parts = [f"text-{color}"]

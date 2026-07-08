@@ -28,14 +28,14 @@ def all_components():
 
 
 def get_literal_values(p_anot):
-    """Returns a list of values if the annotation is a typing.Literal"""
+    """Returns a list of values if the annotation is a Literal."""
     if typing.get_origin(p_anot) is typing.Literal:
         return list(typing.get_args(p_anot))
     return None
 
 
 def get_component_fn(name):
-    """Get component function by component name"""
+    """Get component function by component name."""
     try: mod = importlib.import_module(f"psi_daisy.ui.{name}")
     except ModuleNotFoundError: return None
     target = name.replace("_", "").lower()
@@ -63,7 +63,7 @@ def get_param_info(fn):
 
 
 def get_sample_call_args(fn, component, sample_args, sample_children):
-    """Get sample args/kwargs for a component call"""
+    """Get sample args/kwargs for a component call."""
     sig = inspect.signature(fn)
     pos_args,literal_params,bool_params,var_positional = get_param_info(fn)
     children = sample_children.get(component, sample_children["_default"])
@@ -75,7 +75,7 @@ def get_sample_call_args(fn, component, sample_args, sample_children):
 
 
 def get_required_kw(fn):
-    """Get required keyword-only sample args"""
+    """Get required keyword-only sample args."""
     sig = inspect.signature(fn)
     return {p.name:SAMPLE_ARGS[p.name] for p in sig.parameters.values() if p.kind is inspect.Parameter.KEYWORD_ONLY and p.default is inspect.Parameter.empty and p.name in SAMPLE_ARGS}
     

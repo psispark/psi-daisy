@@ -18,7 +18,7 @@ from psi_daisy.ui import get_ui_headers
 
 
 def psi_app(*, theme: str = "light", hdrs=None, **kw):
-    "Create a FastHTML app with the UI CSS loaded."
+    """Create a FastHTML app with the UI CSS loaded."""
     hdrs = get_ui_headers(theme) + (hdrs or [])
 
     app = fast_app(hdrs=hdrs, htmlkw={"data-theme": theme}, **kw)

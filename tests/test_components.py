@@ -15,7 +15,8 @@ from fasthtml.common import to_xml
 from psi_daisy.ui import Button, Card, Alert, Badge
 from psi_daisy.utils.introspect import all_components, get_component_fn, get_param_info, get_sample_call_args 
 from psi_daisy.utils.constants import SAMPLE_ARGS, SAMPLE_CHILDREN, ROOT_CLASSES
-from examples.component_selector import render_combinations
+from examples.component_selector import render_combinations as component_render_combinations
+from examples.theme_selector import render_combinations as theme_render_combinations
 
 
 def test_basic_components_render(): 
@@ -78,7 +79,16 @@ def test_get_sample_call_args_returns_args_and_kwargs():
 @pytest.mark.parametrize("component", all_components())
 def test_component_selector_renders_all_components(component):
     """Test component selector renders every component"""
-    html = to_xml(render_combinations(component, {}))
+    html = to_xml(component_render_combinations(component, {}))
+    assert html
+    assert "⚠️" not in html
+    assert "text-error" not in html
+
+
+@pytest.mark.parametrize("component", all_components())
+def test_theme_selector_renders_all_components(component):
+    """Test theme selector renders every component."""
+    html = to_xml(theme_render_combinations(component, {}))
     assert html
     assert "⚠️" not in html
     assert "text-error" not in html

@@ -16,7 +16,7 @@ from psi_daisy.config import DAISYUI_CSS_PATH, DAISYUI_THEMES_CSS_PATH, TAILWIND
 
 
 def get_ui_headers(theme: str = "light") -> list[Any]:
-    "Return UI headers for the given theme"
+    "Return UI headers for the given theme."
     return [Link(rel="stylesheet", href=DAISYUI_CSS_PATH),
             Link(rel="stylesheet", href=DAISYUI_THEMES_CSS_PATH),
             Script(src=TAILWIND_CSS_PATH),
