@@ -8,10 +8,11 @@
 #   * 001, luch, 260603, build
 #   * 002, luch, 260608, added theme
 #   * 003, luch, 260622, added variants
+#   * 004, luch, 260712, use css4_colors
 # ################################
 
 from typing import Literal
-from matplotlib.colors import CSS4_COLORS
+from ..utils.css4_colors import CSS4_COLORS
 
 WebColor     = Literal[*tuple(CSS4_COLORS.keys())]
 

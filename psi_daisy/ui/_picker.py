@@ -6,14 +6,15 @@
 # Release:  v0.2
 # History:
 #   * 001, luch, 260628, build
+#   * 002, luch, 260712, use css4_colors
 # ################################
 
 from typing import Iterable, Any
 import json
-from matplotlib.colors import CSS4_COLORS
 from fasthtml.common import Div, Option, Span, Script
 from . import Select, Label
 from .types import Color, Size, SelectVariant
+from ..utils.css4_colors import CSS4_COLORS
 
 color_names_js = {v.lower():k for k,v in CSS4_COLORS.items()}
 color_list_js = [[k,v.lower()] for k,v in CSS4_COLORS.items()]

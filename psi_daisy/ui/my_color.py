@@ -6,15 +6,15 @@
 # Release:  v0.2
 # History:
 #   * 001, luch, 260630, build
+#   * 002, luch, 260712, use css4_colors
 # ################################
 
 import re
-from matplotlib.colors import CSS4_COLORS
 from fasthtml.common import Div, Span, Code 
 from . import Input, Label, Button, Dropdown
 from ..themes import hex_to_rgb, hex_to_oklch
 from .types import WebColor
-from ..utils import merge_classes
+from ..utils import merge_classes, CSS4_COLORS
 
 
 def valid_hex(o:str|None) -> bool: return bool(o and re.match(r"^#(?:[0-9a-fA-F]{3}){1,2}$", o))

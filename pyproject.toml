@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "psi-daisy"
-version = "0.1.0"
+version = "0.1.1"
 description = "A modern DaisyUI component library for FastHTML"
 readme = "README.md"
 license = "MIT"
@@ -16,9 +16,8 @@ dependencies = [
     "python-fasthtml>=0.14",
     "starlette",
     "httpx",
-    "matplotlib",
 ]
-keywords = ["fasthtml", "daisyui", "tailwind", "components", "htmx", "web"]
+keywords = ["fasthtml", "daisyui", "tailwind", "htmx", "components", "web"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
