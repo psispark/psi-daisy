@@ -21,6 +21,7 @@ from psi_daisy.themes import theme_script
 
 
 app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
+#app = psi_app(css="static", hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers()) # sample static css call
 rt = app.route
 
 

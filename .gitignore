@@ -224,3 +224,7 @@ __marimo__/
 # sessionkey
 .sessionkey
 .sesskey
+
+# built style node modules for static css bundle
+styles/daisyui/node_modules/
+

@@ -1,2 +1,13 @@
+include README.md
+include LICENSE
+include llms.txt
+recursive-include docs *.md
+recursive-include psi_daisy/static *
+recursive-include psi_daisy/data *
+recursive-include styles/daisyui input.css package.json package-lock.json
+
+recursive-exclude styles/daisyui/node_modules *
+recursive-exclude **/__pycache__ *
+recursive-exclude ** *.py[cod]
 recursive-exclude tests *
-recursive-exclude test *
+

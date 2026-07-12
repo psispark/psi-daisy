@@ -13,23 +13,35 @@ authors = [
 ]
 requires-python = ">=3.8"
 dependencies = [
-    "python-fasthtml",
+    "python-fasthtml>=0.14",
     "starlette",
+    "httpx",
+    "matplotlib",
 ]
-keywords = ["fasthtml", "daisyui", "tailwind", "components", "web"]
+keywords = ["fasthtml", "daisyui", "tailwind", "components", "htmx", "web"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "uvicorn",
+    "build",
+    "twine",
+]
+
 [project.urls]
 Homepage = "https://github.com/psispark/psi-daisy"
+Issues = "https://github.com/psispark/psi-daisy/issues"
+Documentation = "https://github.com/psispark/psi-daisy/tree/main/docs"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["psi_daisy*", "examples*"]
-exclude = ["tests*", "test*"]
+exclude = ["tests*", "test*", "styles*", "docs*"]
 
 [tool.setuptools.package-data]
 psi_daisy = ["static/**/*", "data/**/*"]

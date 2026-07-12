@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: all;
+}
+
+@source "../../psi_daisy/**/*.py";
+@source "../../examples/**/*.py";
+
+@source inline("btn btn-primary btn-secondary btn-accent btn-info btn-success btn-warning btn-error btn-neutral");
+@source inline("btn-outline btn-soft btn-dash btn-link btn-ghost btn-xs btn-sm btn-lg");
+@source inline("select select-primary select-secondary select-accent select-info select-success select-warning select-error select-neutral select-bordered select-ghost select-xs select-sm select-lg");
+@source inline("radio radio-primary radio-secondary radio-accent radio-info radio-success radio-warning radio-error radio-xs radio-sm radio-lg");
+@source inline("checkbox checkbox-primary checkbox-secondary checkbox-accent checkbox-info checkbox-success checkbox-warning checkbox-error checkbox-xs checkbox-sm checkbox-lg");
+@source inline("badge badge-primary badge-secondary badge-accent badge-info badge-success badge-warning badge-error badge-neutral badge-outline badge-soft badge-dash badge-ghost");
+@source inline("alert alert-primary alert-secondary alert-accent alert-info alert-success alert-warning alert-error alert-soft alert-outline alert-dash");

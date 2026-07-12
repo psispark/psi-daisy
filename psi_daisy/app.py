@@ -7,7 +7,7 @@
 # History:
 #   * 001, luch, 260603, build
 #   * 002, luch, 260628, add hdrs arg to pass in xtra headers
-#   * version, who, when, why
+#   * 003, luch, 260712, add css param
 # ################################
 
 from fasthtml import FastHTML as fast_app
@@ -17,10 +17,9 @@ from psi_daisy.config import STATIC_DIR
 from psi_daisy.ui import get_ui_headers 
 
 
-def psi_app(*, theme: str = "light", hdrs=None, **kw):
-    """Create a FastHTML app with the UI CSS loaded."""
-    hdrs = get_ui_headers(theme) + (hdrs or [])
-
+def psi_app(*, theme: str = "light", css: str = "cdn", hdrs=None, **kw):
+    "Create a FastHTML app with the UI CSS loaded."
+    hdrs = get_ui_headers(theme, css) + (hdrs or [])
     app = fast_app(hdrs=hdrs, htmlkw={"data-theme": theme}, **kw)
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
     return app

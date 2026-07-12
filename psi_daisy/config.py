@@ -8,6 +8,7 @@
 # History:
 #   * 001, luch, 260603, build
 #   * 002, luch, 260608, add themes 
+#   * 003, luch, 260712, static ui path
 # ################################
 
 # local static path
@@ -25,11 +26,12 @@ if not REGISTRY.exists(): REGISTRY.write_text("[]")
 #TAILWIND_PATH = "https://cdn.tailwindcss.com" # tailwind v3
 TAILWIND_CSS_PATH = "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" # tailwind v4
 
-#DAISYUI_CSS_PATH = "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.css" # tailwind v3
+#DAISYUI_CSS_PATH = "https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.css" # with tailwind v3
 DAISYUI_CSS_PATH = "https://cdn.jsdelivr.net/npm/daisyui@5" # daisyui v5, tailwind v4
 #DAISYUI_CSS_PATH = "https://cdn.jsdelivr.net/npm/daisyui@5, https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
 DAISYUI_THEMES_CSS_PATH = "https://cdn.jsdelivr.net/npm/daisyui@5/themes.css"
-#DAISYUI_CSS_PATH = "/static/ui.css"
+
+STATIC_UI_CSS_PATH = "/static/ui.css?v=2"
 
 CALLY_JS_PATH = "https://unpkg.com/cally"
 
