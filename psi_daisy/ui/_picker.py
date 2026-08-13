@@ -7,6 +7,7 @@
 # History:
 #   * 001, luch, 260628, build
 #   * 002, luch, 260712, use css4_colors
+#   * 003, luch, 260812, theme
 # ################################
 
 from typing import Iterable, Any
@@ -15,6 +16,7 @@ from fasthtml.common import Div, Option, Span, Script
 from . import Select, Label
 from .types import Color, Size, SelectVariant
 from ..utils.css4_colors import CSS4_COLORS
+from ..themes import theme_script
 
 color_names_js = {v.lower():k for k,v in CSS4_COLORS.items()}
 color_list_js = [[k,v.lower()] for k,v in CSS4_COLORS.items()]
@@ -181,3 +183,5 @@ function psiColorPickerWeb(el) {
 """
     js = js.replace("__COLOR_NAMES__", json.dumps(color_names_js)).replace("__COLOR_LIST__", json.dumps(color_list_js))
     return [Script(js)]
+
+def get_theme_picker_headers(): return [theme_script()]

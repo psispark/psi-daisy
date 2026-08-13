@@ -86,9 +86,10 @@ from .my_date           import MyDate
 from .my_time           import MyTime
 from .my_datetime       import MyDatetime
 from .my_color          import MyColor
+from .my_theme          import MyTheme
 
 # custom header js
-from ._picker           import get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers 
+from ._picker           import get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers, get_theme_picker_headers  
 
 # explicit all *
 __all__ = [
@@ -106,6 +107,7 @@ __all__ = [
     "TextRotate", "Textarea", "ThemeController", "Timeline", "Toast", "Toggle",
     "Tooltip", "Validator",
     # custom components
-    "MyEmpty", "MyIcon", "MyDate", "MyTime", "MyDatetime", "MyColor", 
+    "MyEmpty", "MyIcon", "MyDate", "MyTime", "MyDatetime", "MyColor", "MyTheme", 
     # custom header js
-    "get_date_picker_headers",  "get_color_picker_headers", ]
+    "get_date_picker_headers", "get_time_picker_headers", "get_datetime_picker_headers", 
+    "get_color_picker_headers", "get_theme_picker_headers" ]

@@ -1,6 +1,6 @@
 # psi-daisy LLM Guide
 
-> saved as `llms.txt` in the root folder  
+> saved as `llms.txt` in app's root folder  
 
 `psi-daisy` is a Python DaisyUI component library for FastHTML.
 

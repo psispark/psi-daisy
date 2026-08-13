@@ -19,7 +19,9 @@ from psi_daisy.ui.my_color import MyColor, valid_hex, color_name
 from psi_daisy.ui.my_date import MyDate
 from psi_daisy.ui.my_time import MyTime
 from psi_daisy.ui.my_datetime import MyDatetime
+import psi_daisy.ui.my_theme as theme_mod
 from psi_daisy.themes import hex_to_rgb, hex_to_oklch, vals_to_css, parse_css_vars
+from psi_daisy.ui import Button, Dropdown, MyTheme, get_theme_picker_headers
 
 
 def test_all_components_finds_button():
@@ -183,3 +185,30 @@ def test_color_picker_js_updates_outputs_and_menu():
     assert "window.psiColorList" in html
     assert "data-color-name" in html
     assert "data-color-menu" in html
+
+
+def test_my_theme_renders_selector(monkeypatch):
+    "Test MyTheme renders the expected selector wiring."
+    monkeypatch.setattr(theme_mod, "registered_themes", lambda: ["my-olive"])
+    html = to_xml(MyTheme(name="site_theme", id="site-theme", cls="w-64"))
+    assert 'name="site_theme"' in html
+    assert 'id="site-theme"' in html
+    assert 'onchange="applyPageTheme(this.value)"' in html
+    assert "w-full max-w-xs w-64" in html
+    assert 'value="my-olive"' in html
+
+
+def test_my_theme_selects_current_theme(monkeypatch):
+    "Test MyTheme selects the current theme and sorts light before dark."
+    monkeypatch.setattr(theme_mod, "registered_themes", lambda: ["my-olive"])
+    html = to_xml(MyTheme(current="my-olive"))
+    assert 'value="my-olive" selected' in html
+    assert html.index('value="light"') < html.index('value="dark"')
+
+
+def test_theme_picker_headers_include_expected_js():
+    "Test theme picker headers provide page theme behavior."
+    html = "".join(to_xml(o) for o in get_theme_picker_headers())
+    assert "function applyPageTheme" in html
+    assert "CUSTOM_THEME_VARS" in html
+    assert "ALL_CSS_VARS" in html

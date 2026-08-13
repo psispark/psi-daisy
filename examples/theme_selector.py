@@ -13,14 +13,13 @@
 import itertools
 from fasthtml.common import *
 from psi_daisy import psi_app
-from psi_daisy.ui import Button, Divider, get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers
+from psi_daisy.ui import Button, Divider, MyTheme, get_date_picker_headers, get_time_picker_headers, get_datetime_picker_headers, get_color_picker_headers, get_theme_picker_headers 
 from psi_daisy.utils.introspect import get_component_fn, get_param_info, get_required_kw
-from psi_daisy.utils.widgets import mk_comp_select, mk_args_panel, mk_theme_select
+from psi_daisy.utils.widgets import mk_comp_select, mk_args_panel 
 from psi_daisy.utils.constants import SAMPLE_CHILDREN
-from psi_daisy.themes import theme_script
 
 
-app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
+app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers() + get_theme_picker_headers())
 #app = psi_app(css="static", hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers()) # sample static css call
 rt = app.route
 
@@ -32,7 +31,7 @@ def render_home():
             cls="flex items-center mb-6"),
         Div(
             H2("Theme", cls="text-lg font-semibold mb-3 text-base-content"),
-            mk_theme_select(),
+            MyTheme(),
             cls="flex flex-col mb-4"),
         Div(
             H2("Component", cls="text-lg font-semibold mb-3 text-base-content"),
@@ -91,7 +90,7 @@ def render_combinations(component, form_data):
 
 
 @rt("/")
-def get(): return theme_script(), render_home()
+def get(): return render_home()
 
 
 @rt("/update-args")

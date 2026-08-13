@@ -1,7 +1,7 @@
 # psi-daisy
 
 A modern Python DaisyUI component library for FastHTML  
-The goal of `psi-daisy` is to make developing websites in Python easier.
+The goal of `psi-daisy` is to make developing websites in Python much easier.
 
 ---
 
@@ -117,8 +117,9 @@ Built in SolveIt using Codex GPT-5.5
 
 ## Links
 
+* `psi-daisy` docs - https://psispark.com/psi-daisy-docs
 * GitHub Home - https://github.com/psispark/psi-daisy
-* Github Documentation - https://github.com/psispark/psi-daisy/tree/main/docs
+* Github Docs - https://github.com/psispark/psi-daisy/tree/main/docs
 * Github Issues & Ideas - https://github.com/psispark/psi-daisy/issues
 ---  
 * PsiSpark - https://psispark.com/

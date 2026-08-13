@@ -7,12 +7,13 @@
 # History:
 #   * 001, ai, 260607, refactor
 #   * 002, Luch, 260608, fixed package path 
-#   * 003, Luch, 260608, added theme select  
+#   * 003, Luch, 260608, added theme select 
+#   * 004, Luch, 260812, added MyTheme component so converted mk_theme_select to a wrapper 
 # ################################
 
 from fasthtml.common import *
 from fasthtml.common import Select as TallSelect
-from psi_daisy.ui import Toggle, Select, Label, Checkbox 
+from psi_daisy.ui import Toggle, Select, Label, Checkbox, MyTheme  
 from psi_daisy.utils.introspect import all_components, get_component_fn, get_param_info
 from psi_daisy.utils.js import js_exclusive_all
 
@@ -70,22 +71,7 @@ def mk_args_panel(component="button"):
 
     inner = Div(*controls, cls="flex flex-wrap gap-6 p-4") if controls         else P("No configurable args.", cls="text-sm text-gray-400 italic")
     return Div(inner, id="args-panel", cls="flex flex-col")
-    
 
-def mk_theme_select(current="light"):
-    """Dropdown selector of builtin and custom themes."""
-    from psi_daisy.themes import BUILTIN_THEMES, registered_themes
-    all_themes = list(set(list(BUILTIN_THEMES) + list(registered_themes())))
 
-    def sort_key(t):
-        lower_t = t.lower()
-        if lower_t == 'light': return (0, lower_t)
-        if lower_t == 'dark': return (1, lower_t)
-        return (2, lower_t)
-    
-    sorted_themes = sorted(all_themes, key=sort_key)
-    return Select(
-        *[Option(t.title() if t in BUILTIN_THEMES else t, value=t, selected=(t == current)) for t in sorted_themes],
-        name="theme", id="theme-sel",
-        onchange="applyPageTheme(this.value)",
-        cls="w-full max-w-xs")
+def mk_theme_select(current="light"): return MyTheme(current=current)
+
