@@ -1,3 +1,10 @@
+---
+type: reference  
+title: "Components"  
+id: psi-daisy-components  
+updated: "2026-08-14"  
+---
+
 # Components
 
 `psi-daisy` provides Python component functions for building DaisyUI-styled FastHTML apps.
@@ -105,6 +112,7 @@ renders as a FastHTML button with DaisyUI classes and HTMX attributes.
   - [MyTime](#mytime)
   - [MyDatetime](#mydatetime)
   - [MyEmpty](#myempty)
+  - [MyTheme](#mytheme)
 
 ---
 
@@ -253,22 +261,34 @@ app_static = psi_app(theme="light", css="static")
 
 ### Picker Headers
 
-These helpers provide JavaScript needed by custom picker components.
+Some custom components require companion JavaScript headers. These headers are **not added automatically** by `psi_app()`; include the helper that corresponds to every picker component used by the app.
+
+| Component | Required header helper |
+| --- | --- |
+| `MyDate` | `get_date_picker_headers()` |
+| `MyTime` | `get_time_picker_headers()` |
+| `MyDatetime` | `get_datetime_picker_headers()` |
+| `MyColor` | `get_color_picker_headers()` |
+| `MyTheme` | `get_theme_picker_headers()` |
+
+For one picker:
 
 ```python
-get_date_picker_headers()
-get_time_picker_headers()
-get_datetime_picker_headers()
-get_color_picker_headers()
+app, rt = psi_app(hdrs=get_theme_picker_headers())
 ```
 
-Use when an app includes the corresponding picker components.
-
-Example:
+For several picker types, combine their header lists:
 
 ```python
-app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers())
+picker_hdrs = (
+    get_datetime_picker_headers()
+    + get_color_picker_headers()
+    + get_theme_picker_headers()
+)
+app, rt = psi_app(hdrs=picker_hdrs)
 ```
+
+The component may still render without its companion header, but its browser-side picker or theme behavior will not work correctly.
 
 ---
 
@@ -1958,10 +1978,10 @@ Example:
 MyColor(name="primary", web_color="dodgerblue", show_outputs=True)
 ```
 
-Use with:
+**Required app setup:** include the color picker header when creating the app:
 
 ```python
-get_color_picker_headers()
+app, rt = psi_app(hdrs=get_color_picker_headers())
 ```
 
 ---
@@ -1993,10 +2013,10 @@ Example:
 MyDate(name="start", year=2026, month=7, day=12)
 ```
 
-Use with:
+**Required app setup:** include the date picker header when creating the app:
 
 ```python
-get_date_picker_headers()
+app, rt = psi_app(hdrs=get_date_picker_headers())
 ```
 
 ---
@@ -2027,10 +2047,10 @@ Example:
 MyTime(name="start_time", hour=9, minute=30)
 ```
 
-Use with:
+**Required app setup:** include the time picker header when creating the app:
 
 ```python
-get_time_picker_headers()
+app, rt = psi_app(hdrs=get_time_picker_headers())
 ```
 
 ---
@@ -2064,10 +2084,10 @@ Example:
 MyDatetime(name="scheduled_at", year=2026, month=7, day=12, hour=14)
 ```
 
-Use with:
+**Required app setup:** include the datetime picker header when creating the app:
 
 ```python
-get_datetime_picker_headers()
+app, rt = psi_app(hdrs=get_datetime_picker_headers())
 ```
 
 ---
@@ -2100,6 +2120,40 @@ MyEmpty("No results", body="Try changing your filters.", action=Button("Reset"))
 ```
 
 ---
+
+## MyTheme
+
+```python
+MyTheme(name="theme", current="light", id="theme-sel", **kw)
+```
+
+Custom theme selector component.
+
+`MyTheme` renders a `Select` containing DaisyUI's built-in themes and any registered custom themes. Changing the selection updates the page's root `data-theme` value and applies custom theme CSS variables when needed.
+
+Parameters:
+
+- `name`: select field name
+- `current`: initially selected theme
+- `id`: select DOM id
+- `**kw`: passed to the `Select`; custom `cls` values are merged with the defaults
+
+Example:
+
+```python
+MyTheme(current="dark", name="site_theme", id="site-theme", cls="w-64")
+```
+
+**Required app setup:** `MyTheme` calls the browser function `applyPageTheme()`. Include `get_theme_picker_headers()` when creating the app so that function and the registered custom-theme variables are available:
+
+```python
+app, rt = psi_app(hdrs=get_theme_picker_headers())
+```
+
+Without this header, the selector can render, but changing its value cannot apply the page theme correctly.
+
+---
+
 
 ## ThemeController
 

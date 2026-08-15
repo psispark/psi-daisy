@@ -1,6 +1,13 @@
+---
+type: guide  
+title: "psi-daisy LLM Guide"  
+id: psi-daisy-llm-guide  
+updated: "2026-08-14"  
+---
+
 # psi-daisy LLM Guide
 
-> saved as `llms.txt` in app's root folder  
+> 📌 save as `llms.txt` in app's root folder  
 
 `psi-daisy` is a Python DaisyUI component library for FastHTML.
 
@@ -57,6 +64,14 @@ For local packaged CSS instead of CDN CSS:
 ```python
 app, rt = psi_app(theme="light", css="static")
 ```
+
+Some custom picker components require companion JavaScript headers. Include them through `psi_app(hdrs=...)`; they are not added automatically:
+
+```python
+app, rt = psi_app(hdrs=get_theme_picker_headers())
+```
+
+Required pairs include `MyDate`/`get_date_picker_headers()`, `MyTime`/`get_time_picker_headers()`, `MyDatetime`/`get_datetime_picker_headers()`, `MyColor`/`get_color_picker_headers()`, and `MyTheme`/`get_theme_picker_headers()`.
 
 ---
 
@@ -212,9 +227,18 @@ MyDate(name="start_date")
 MyTime(name="start_time")
 MyDatetime(name="scheduled_at")
 MyColor(name="primary", web_color="dodgerblue")
+MyTheme(current="light")
 ThemeController("dark")
 MyEmpty("No results", body="Try changing your filters.")
 ```
+
+When using picker components, include their companion headers in the app setup. `MyTheme` specifically requires:
+
+```python
+app, rt = psi_app(hdrs=get_theme_picker_headers())
+```
+
+Do not show a picker component without also showing its required header when the example includes app construction.
 
 ---
 
@@ -355,5 +379,6 @@ When helping users build with `psi-daisy`:
 4. Use `cls` only for extra layout/styling utilities.
 5. Use HTMX kwargs instead of JavaScript for interactivity.
 6. Use `psi_app()` for app setup.
-7. Prefer clear, small, idiomatic examples.
-8. Keep the user in the `psi-daisy` component API unless they explicitly ask to go lower-level.
+7. Include each custom picker's required header helper in `psi_app(hdrs=...)`; in particular, `MyTheme` requires `get_theme_picker_headers()`.
+8. Prefer clear, small, idiomatic examples.
+9. Keep the user in the `psi-daisy` component API unless they explicitly ask to go lower-level.

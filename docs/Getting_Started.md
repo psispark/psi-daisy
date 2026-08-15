@@ -1,3 +1,10 @@
+---
+type: guide  
+title: "Getting Started with psi-daisy"  
+id: psi-daisy-getting-started  
+updated: "2026-08-14"  
+---
+
 # Getting Started with psi-daisy
 
 `psi-daisy` is a Python DaisyUI component library for FastHTML.  
@@ -111,7 +118,32 @@ server = JupyUvi(demo.app)
   
 ## Themes
 
-psi-daisy is designed to work with DaisyUI themes and Taiwind styles.
+psi-daisy works with DaisyUI themes and Tailwind styles. Use `theme` on `psi_app()` to set the initial page theme:
+
+```python
+app, rt = psi_app(theme="light")
+```
+
+Use `MyTheme` to let the user switch between DaisyUI's built-in themes and any registered custom themes:
+
+```python
+from fasthtml.common import *
+from psi_daisy import *
+from psi_daisy.ui import *
+
+app, rt = psi_app(
+    theme="light",
+    hdrs=get_theme_picker_headers())
+
+@rt("/")
+def get():
+    return Card(
+        H2("Choose a theme"),
+        MyTheme(current="light"),
+        cls="p-6")
+```
+
+`get_theme_picker_headers()` is required for `MyTheme`; it provides the browser function that updates `data-theme` and applies registered custom-theme variables. It is not included automatically by `psi_app()`.
 
 You can explore themes using:
 
@@ -175,8 +207,9 @@ app = psi_app(theme="light", css="static")
 \
 Think of it like this: 
 * In *CDN mode*, the browser gets DaisyUI/Tailwind from external URLs.  
-* In *static mode*, the browser gets the prebuilt bundle from `/static/ui.css`. The components render the same HTML classes either way; only the CSS source changes.
-
+* In *static mode*, the browser gets the prebuilt bundle from `/static/ui.css`.  
+The static bundle was built in `2026-07`.
+  
 See `docs/Static_CSS_Bundle.md` for details.
 
 ---

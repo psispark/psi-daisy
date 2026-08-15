@@ -1,3 +1,10 @@
+---
+type: architecture  
+title: "Component Rendering Flow"  
+id: psi-daisy-component-rendering-flow  
+updated: "2026-08-14"  
+---
+
 # Component Rendering Flow
 
 This document explains how a `psi-daisy` component becomes rendered HTML in the browser, and how `psi-daisy`, FastHTML, HTMX, DaisyUI, Tailwind, themes, and CSS work together.
@@ -104,6 +111,29 @@ document.addEventListener('htmx:afterSwap', () => lucide.createIcons());
 ```
 
 That matters because HTMX can replace part of the page after initial load. If the swapped-in HTML contains Lucide icons, they need to be reprocessed.
+
+Some custom components require additional JavaScript headers. These are **not included automatically** by `psi_app()`:
+
+| Component | Header helper |
+| --- | --- |
+| `MyDate` | `get_date_picker_headers()` |
+| `MyTime` | `get_time_picker_headers()` |
+| `MyDatetime` | `get_datetime_picker_headers()` |
+| `MyColor` | `get_color_picker_headers()` |
+| `MyTheme` | `get_theme_picker_headers()` |
+
+Pass the required list through `hdrs` when constructing the app:
+
+```python
+app, rt = psi_app(hdrs=get_theme_picker_headers())
+```
+
+For several picker types, concatenate the lists:
+
+```python
+app, rt = psi_app(
+    hdrs=get_datetime_picker_headers() + get_theme_picker_headers())
+```
 
 ---
 
@@ -468,7 +498,7 @@ The same class can look different under different themes because DaisyUI changes
 
 ## ThemeController
 
-`ThemeController` in `psi_daisy/ui/theme_controller.py` returns a checkbox input with DaisyUI’s `theme-controller` class:
+`ThemeController` in `psi_daisy/ui/theme_controller.py` returns a checkbox with DaisyUI’s `theme-controller` class that allows you to toggle between the current and another theme:
 
 ```python
 ThemeController("dark")
@@ -480,7 +510,7 @@ It renders an input conceptually like:
 <input type="checkbox" value="dark" class="theme-controller">
 ```
 
-DaisyUI uses that pattern to switch themes.
+DaisyUI uses that pattern to toggle themes.
 
 `psi-daisy` also has custom theme support in `psi_daisy/themes.py`, including helpers for:
 
@@ -497,6 +527,41 @@ document.documentElement.setAttribute('data-theme', name)
 ```
 
 and then applies or removes custom CSS variables.
+
+---
+
+## MyTheme
+
+`MyTheme` in `psi_daisy/ui/my_theme.py` renders a `Select` for choosing a theme from DaisyUI's built-in themes and registered custom themes:
+
+```python
+from psi_daisy.ui import MyTheme, get_theme_picker_headers
+
+app, rt = psi_app(hdrs=get_theme_picker_headers())
+
+MyTheme(current="light", name="site_theme", id="site-theme")
+```
+
+The component renders options from `BUILTIN_THEMES` and `registered_themes()`. Its change handler calls:
+
+```javascript
+applyPageTheme(this.value)
+```
+
+That browser function is supplied by `get_theme_picker_headers()`, not by the default `psi_app()` headers. The helper also serializes registered custom-theme variables into the page.
+
+```mermaid
+flowchart TD
+    A[MyTheme Select] --> B[User chooses theme]
+    B --> C[applyPageTheme selected value]
+    C --> D[Set html data-theme]
+    C --> E[Remove previous custom CSS variables]
+    C --> F{Registered custom theme?}
+    F -->|yes| G[Apply custom CSS variables]
+    F -->|no| H[Use DaisyUI built-in theme variables]
+```
+
+Without `get_theme_picker_headers()`, the select can render but `applyPageTheme()` is unavailable, so changing the selection cannot apply the page theme correctly.
 
 ---
 
@@ -678,16 +743,21 @@ This shows the full stack in one element:
 ---
 
 ## CSS Modes
-The above diagrams use the *default* css mode, where psi-daisy loads DaisyUI/Tailwind from CDN-style URLs:
+
+The above diagrams use the *default* CSS mode, where psi-daisy loads DaisyUI/Tailwind from CDN-style URLs:
+
 ```python
 app = psi_app(theme="light")
 ```
-There is a *static* css mode, where psi-daisy loads DaisyUI/Tailwind from alocal packaged static CSS bundle instead:
+
+There is a *static* CSS mode, where psi-daisy loads DaisyUI/Tailwind from a local packaged static CSS bundle instead:
+
 ```python
 app = psi_app(theme="light", css="static")
 ```
-\
+
 Conceptually:
+
 ```mermaid
 flowchart TD
     A[psi_app] --> B{css mode}
@@ -700,6 +770,7 @@ flowchart TD
     E --> G
     F --> G
 ```
+
 See `docs/Static_CSS_Bundle.md` for details.
 
 ---

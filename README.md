@@ -1,3 +1,10 @@
+---
+type: project  
+title: "psi-daisy"  
+id: psi-daisy-readme  
+updated: "2026-08-14"  
+---
+
 # psi-daisy
 
 A modern Python DaisyUI component library for FastHTML  

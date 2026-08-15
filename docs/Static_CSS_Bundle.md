@@ -1,3 +1,10 @@
+---
+type: guide  
+title: "Static CSS Bundle"  
+id: psi-daisy-static-css-bundle  
+updated: "2026-08-14"  
+---
+
 # Static CSS Bundle
 
 `psi-daisy` can load DaisyUI/Tailwind styles in two ways:
@@ -175,13 +182,13 @@ The `examples/theme_selector.py` demo creates its app with `psi_app()`.
 CDN mode:
 
 ```python
-app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
+app = psi_app(hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers() + get_theme_picker_headers())
 ```
 
 Static bundle mode:
 
 ```python
-app = psi_app(css="static", hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers())
+app = psi_app(css="static", hdrs=get_date_picker_headers() + get_time_picker_headers() + get_datetime_picker_headers() + get_color_picker_headers() + get_theme_picker_headers())
 ```
 
 Then the notebook runner can stay the same:
@@ -196,7 +203,7 @@ app = demo.app
 server = JupyUvi(app)
 ```
 
-The important point is that `css="static"` must be passed where `psi_app()` is called. Once `demo.app` already exists, the headers have already been created.
+The important point is that `css="static"` must be passed where `psi_app()` is called, and `get_theme_picker_headers()` is still required when the app uses `MyTheme`. Static mode changes the CSS source; it does not supply the component's browser-side theme function. Once `demo.app` already exists, the headers have already been created.
 
 ---
 
